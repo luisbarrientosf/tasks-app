@@ -37,6 +37,11 @@ export const getTasksReducer = (state: State = initialState, action: Action): St
       error: action.payload,
     };
   }
+  case ActionType.GET_TASKS_INIT: {
+    return {
+      ...initialState,
+    };
+  }
   default:
     return state;
   }
