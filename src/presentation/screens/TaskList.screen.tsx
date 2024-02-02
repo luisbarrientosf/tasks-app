@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "../../infrastructure/redux/hooks
 import { getTasks, getTasksInit } from "../../infrastructure/redux/actions/getTasks.actions";
 import { TaskList } from "../components/TaskList/TaskList";
 
-
 interface Props extends NativeStackScreenProps<StackParams, "TaskList"> {}
 
 export const TaskListScreen: React.FC<Props> = ({ navigation }) => {
@@ -24,12 +23,12 @@ export const TaskListScreen: React.FC<Props> = ({ navigation }) => {
     };
   }, []);
 
-  return (
+  return (  
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Task List</Text>
-      { loading || !tasks && <Text>Loading...</Text>}
+      { loading && <Text>Loading...</Text>}
       { tasks && (
-        <TaskList data={tasks} />
+        <TaskList data={tasks} navigate={navigation.navigate}/>
       )}
     </SafeAreaView>
   );

@@ -5,8 +5,8 @@ import {
   ListRenderItem,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
-  TouchableOpacity
 } from "react-native";
 import { Task } from "../../../domain/entities/Task";
 
@@ -16,15 +16,15 @@ const height = Dimensions.get("screen").height - 176;
 
 interface TaskListProps {
   data: Task[];
+  navigate: (route: any, args: any) => void;
 }
 
-export const TaskList: FC<TaskListProps> = ({ data }) => {
-
+export const TaskList: FC<TaskListProps> = ({ data, navigate }) => {
   const TaskRow: ListRenderItem<Task> = useCallback(({ item }) => {
     return (
       <TouchableOpacity
         style={styles.rowCard}
-        onPress={() => {}}
+        onPress={() => navigate("TaskEdit", { task: item })}
       >
         <Text style={styles.rowTitle}>
           {item.title}
