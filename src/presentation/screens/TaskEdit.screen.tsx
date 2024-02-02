@@ -4,22 +4,25 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParams } from "../navigation/StackNavigator";
 import { useAppDispatch, useAppSelector } from "../../infrastructure/redux/hooks";
-
-import { TaskStatusSelector } from "../../presentation/components/TaskStatusSelector/TaskStatusSelector";
 import { TaskStatus } from "../../domain/entities/Task";
-import { updateTask, updateTaskInit } from "../../infrastructure/redux/actions/updateTasks.actions";
+import { TaskStatusSelector } from "../../presentation/components/TaskStatusSelector/TaskStatusSelector";
 import { Button } from "../../presentation/components/Button/Button";
+import { DeleteTaskModal } from "../../presentation/components/DeleteTaskModal/DeleteTaskModal";
+import { deleteTaskInit } from "../../infrastructure/redux/actions/deleteTask.actions";
+import { updateTask, updateTaskInit } from "../../infrastructure/redux/actions/updateTasks.actions";
 
 interface Props extends NativeStackScreenProps<StackParams, "TaskEdit"> {}
 
 export const TaskEditScreen: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector(state => state.updateTask.loading);
-  const update = useAppSelector(state => state.updateTask.value);
+  const updateTaskValue = useAppSelector(state => state.updateTask.value);
+  const deleteTaskValue = useAppSelector(state => state.deleteTask.value);
 
   const { task } = route.params;
   const [title, setTitle] = useState<string>(task.title);
   const [status, setStatus] = useState<TaskStatus>(task.status);
+  const [isDeleteTaskModalVisible, setIsDeleteTaskModalVisible] = useState<boolean>(false);
 
   const handleOnChangeTitle = (e: NativeSyntheticEvent<TextInputChangeEventData>): void => {
     const value = e.nativeEvent.text;
@@ -27,13 +30,14 @@ export const TaskEditScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   useEffect(()=>{
-    if(update !== null) {
+    if(updateTaskValue !== null || deleteTaskValue !== null) {
       navigation.pop();
     }
     return () => {
       dispatch(updateTaskInit());
+      dispatch(deleteTaskInit());
     };
-  }, [update]);
+  }, [updateTaskValue, deleteTaskValue]);
 
   return (  
     <SafeAreaView style={styles.container}>
@@ -60,9 +64,20 @@ export const TaskEditScreen: React.FC<Props> = ({ route, navigation }) => {
           onPress={() => dispatch(updateTask(task.id, title, status))}
           disabled={loading}
         />
+
+        <Button
+          title="Delete"
+          onPress={() => setIsDeleteTaskModalVisible(true)}
+          disabled={loading}
+          type='danger'
+        />
       </View>
       
-      
+      <DeleteTaskModal 
+        isVisible={isDeleteTaskModalVisible}
+        setIsVisible={setIsDeleteTaskModalVisible}
+        task={task}
+      />
     </SafeAreaView>
   );
 };

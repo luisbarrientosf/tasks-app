@@ -3,10 +3,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { getTasksReducer } from "./reducers/getTasks.reducer";
 import { reactotron } from "../../infrastructure/reactotron/reactotron";
 import { updateTaskReducer } from "./reducers/updateTask.reducer";
+import { deleteTaskReducer } from "./reducers/deleteTask.reducer";
 
 const reducers = combineReducers({
   getTasks: getTasksReducer,
-  updateTask: updateTaskReducer
+  updateTask: updateTaskReducer,
+  deleteTask: deleteTaskReducer,
 });
 
 export const store = configureStore({

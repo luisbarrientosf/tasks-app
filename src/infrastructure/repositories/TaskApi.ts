@@ -23,7 +23,7 @@ export class TaskApi implements TaskRepository {
     const task = new Task(taskId, title, status);
 
     await fetch(
-      "https://jsonplaceholder.typicode.com/todos/1", { 
+      `https://jsonplaceholder.typicode.com/todos/${taskId}`, { 
         method: "PUT",
         body: JSON.stringify({
           title: task.title,
@@ -38,7 +38,12 @@ export class TaskApi implements TaskRepository {
   }
 
   async delete(taskId: string): Promise<void> {
-    await wait(2000);
-    console.log("deleting", taskId);
+    await fetch(
+      `https://jsonplaceholder.typicode.com/todos/${taskId}`, { 
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }).then(response => response.json());
   }
 }
