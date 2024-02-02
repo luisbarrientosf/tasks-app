@@ -1,0 +1,31 @@
+{
+  "name": "tasks-app",
+  "expo": {
+    "name": "tasks-app",
+    "slug": "tasks-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/presentation/assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./src/presentation/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/presentation/assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./src/presentation/assets/favicon.png"
+    }
+  }
+}
