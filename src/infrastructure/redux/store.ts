@@ -1,12 +1,14 @@
 import thunk from "redux-thunk";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { getTasksReducer } from "./reducers/getTasks.reducer";
 import { reactotron } from "../../infrastructure/reactotron/reactotron";
+import { getTasksReducer } from "./reducers/getTasks.reducer";
+import { createTaskReducer } from "./reducers/createTask.reducer";
 import { updateTaskReducer } from "./reducers/updateTask.reducer";
 import { deleteTaskReducer } from "./reducers/deleteTask.reducer";
 
 const reducers = combineReducers({
   getTasks: getTasksReducer,
+  createTask: createTaskReducer,
   updateTask: updateTaskReducer,
   deleteTask: deleteTaskReducer,
 });

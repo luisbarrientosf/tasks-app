@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NativeSyntheticEvent, StyleSheet, Text, TextInput, TextInputChangeEventData, View, TouchableOpacity } from "react-native";
+import { NativeSyntheticEvent, StyleSheet, Text, TextInput, TextInputChangeEventData, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParams } from "../navigation/StackNavigator";
@@ -66,10 +66,22 @@ export const TaskEditScreen: React.FC<Props> = ({ route, navigation }) => {
         />
 
         <Button
+          title="Cancel"
+          onPress={() => navigation.pop()}
+          disabled={loading}
+          type="secondary"
+        />
+      </View>
+
+
+      <View style={styles.warningContainer}>
+        <Text style={styles.warningTitle}> DANGER ZONE</Text>
+        <Text style={styles.warningText}> If you want to DELETE this task, press the next button</Text>
+        <Button
           title="Delete"
           onPress={() => setIsDeleteTaskModalVisible(true)}
           disabled={loading}
-          type='danger'
+          type="danger"
         />
       </View>
       
@@ -95,12 +107,34 @@ const styles = StyleSheet.create({
     padding: 14,
     backgroundColor: "white"
   },
+  warningContainer: {
+    marginTop: 50,
+    borderColor: "#DADADA",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 14,
+    backgroundColor: "white"
+  },
+  warningTitle: {
+    fontWeight: "600",
+    fontSize: 14,
+    color: "#D92626",
+    width: "100%",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  warningText: {
+    fontWeight: "400",
+    fontSize: 14,
+    width: "100%",
+    textAlign: "center",
+    marginBottom: 10,
+  },
   title: {
     fontWeight: "600",
     fontSize: 42,
     marginTop: 10,
-    marginBottom: 30,
-    alignSelf: "center"
+    marginBottom: 30
   },
   formRow: {
     marginBottom: 40

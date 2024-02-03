@@ -12,10 +12,12 @@ interface ButtonProps {
   title: string;
   disabled: boolean;
   onPress: () => void;
-  type?: "danger"|"secondary"
+  type?: "danger"|"secondary";
+  width?: number;
+  height?: number;
 }
 
-export const Button: FC<ButtonProps> = ({ title, disabled, onPress, type }) => {
+export const Button: FC<ButtonProps> = ({ title, disabled, onPress, type, width, height }) => {
   const buttonStyles: ViewStyle[] = [styles.button];
   const textStyles: TextStyle[] = [styles.text];
 
@@ -31,6 +33,13 @@ export const Button: FC<ButtonProps> = ({ title, disabled, onPress, type }) => {
   if(disabled){
     buttonStyles.push(styles.disabled);
     textStyles.push(styles.disabledText);
+  }
+
+  if(width){
+    buttonStyles.push({ width });
+  }
+  if(height){
+    buttonStyles.push({ height });
   }
   return (
     <TouchableOpacity

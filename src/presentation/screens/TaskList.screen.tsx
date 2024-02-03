@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParams } from "../navigation/StackNavigator";
 import { useAppDispatch, useAppSelector } from "../../infrastructure/redux/hooks";
 import { getTasks, getTasksInit } from "../../infrastructure/redux/actions/getTasks.actions";
 import { TaskList } from "../components/TaskList/TaskList";
+import { Button } from "../../presentation/components/Button/Button";
 
 interface Props extends NativeStackScreenProps<StackParams, "TaskList"> {}
 
@@ -25,7 +26,18 @@ export const TaskListScreen: React.FC<Props> = ({ navigation }) => {
 
   return (  
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Task List</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Task List</Text>
+        <Button
+          title='Add Task'
+          width={120}
+          height={40}
+          onPress={() => navigation.navigate("TaskCreate")}
+          disabled={false}
+        />
+      </View>
+      
+
       { loading && <Text>Loading...</Text>}
       { tasks && (
         <TaskList data={tasks} navigate={navigation.navigate}/>
@@ -40,11 +52,17 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 12
   },
+  header: {
+    flexDirection: "row", 
+    justifyContent: "space-between",
+    width: "100%",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 26
+  },
   title: {
     fontWeight: "600",
     fontSize: 42,
-    marginTop: 10,
-    marginBottom: 30,
     alignSelf: "center"
   },
 });
