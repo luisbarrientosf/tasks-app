@@ -41,6 +41,7 @@ export const Button: FC<ButtonProps> = ({ title, disabled, onPress, type, width,
   if(height){
     buttonStyles.push({ height });
   }
+  
   return (
     <TouchableOpacity
       style={buttonStyles}

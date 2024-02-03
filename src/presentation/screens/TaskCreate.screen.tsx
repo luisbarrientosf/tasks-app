@@ -24,7 +24,7 @@ export const TaskCreateScreen: React.FC<Props> = ({ navigation }) => {
     setTitle(value);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if(createTaskValue !== null) {
       navigation.pop();
     }

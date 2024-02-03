@@ -21,8 +21,8 @@ interface DeleteTaskModalProps {
 
 export const DeleteTaskModal: FC<DeleteTaskModalProps> = ({ task, isVisible, setIsVisible }) => {
   const { loading, value } = useAppSelector(state => state.deleteTask);
-
   const dispatch = useAppDispatch();
+
   useEffect(()=>{
     if(value){
       setIsVisible(false);
@@ -31,6 +31,7 @@ export const DeleteTaskModal: FC<DeleteTaskModalProps> = ({ task, isVisible, set
       dispatch(deleteTaskInit());
     };
   }, [value]);
+  
   return (
     <Modal
       visible={isVisible}

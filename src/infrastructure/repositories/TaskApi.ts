@@ -1,20 +1,20 @@
 import { Task, TaskStatus } from "../../domain/entities/Task";
 import { TaskRepository } from "../../domain/repositories/TaskRepository";
 import { TaskMapper } from "../../infrastructure/mappers/TaskMapper";
-import { GetTodoResponse } from "./GetTodoResponse.dto";
+import { TodoResponse } from "./TodoResponse.dto";
 
 export class TaskApi implements TaskRepository {
   async get(): Promise<Task[]> {
-    const todos: GetTodoResponse[] = await fetch("https://jsonplaceholder.typicode.com/todos?userId=1")
+    const todos: TodoResponse[] = await fetch("https://jsonplaceholder.typicode.com/todos?userId=1")
       .then(response => response.json());
     
-    return TaskMapper.fromGetTodoResponse(todos);
+    return TaskMapper.fromTodoResponse(todos);
   }
 
   async create(title: string, status: string): Promise<Task> {
     const task = new Task("dummy", title, status);
 
-    const todo: GetTodoResponse = await fetch(
+    const todo: TodoResponse = await fetch(
       "https://jsonplaceholder.typicode.com/todos", { 
         method: "POST",
         body: JSON.stringify({

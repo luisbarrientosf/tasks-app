@@ -31,7 +31,7 @@ export const TaskEditScreen: React.FC<Props> = ({ route, navigation }) => {
     setTitle(value);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if(updateTaskValue !== null || deleteTaskValue !== null) {
       navigation.pop();
     }

@@ -22,7 +22,7 @@ export const deleteTask = (taskId: string) => {
 
       dispatch({
         type: ActionType.DELETE_TASK_FAIL,
-        payload: "Error getting tasks"
+        payload: err?.toString() || "Error deleting task"
       });
     }
   };
