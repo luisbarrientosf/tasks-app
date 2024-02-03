@@ -10,14 +10,16 @@ import { Button } from "../../presentation/components/Button/Button";
 import { DeleteTaskModal } from "../../presentation/components/DeleteTaskModal/DeleteTaskModal";
 import { deleteTaskInit } from "../../infrastructure/redux/actions/deleteTask.actions";
 import { updateTask, updateTaskInit } from "../../infrastructure/redux/actions/updateTasks.actions";
+import { ErrorCard } from "../../presentation/components/ErrorCard/ErrorCard";
 
 interface Props extends NativeStackScreenProps<StackParams, "TaskEdit"> {}
 
 export const TaskEditScreen: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useAppDispatch();
-  const loading = useAppSelector(state => state.updateTask.loading);
+  const { loading, error } = useAppSelector(state => state.updateTask);
   const updateTaskValue = useAppSelector(state => state.updateTask.value);
   const deleteTaskValue = useAppSelector(state => state.deleteTask.value);
+  const deleteError = useAppSelector(state => state.deleteTask.error);
 
   const { task } = route.params;
   const [title, setTitle] = useState<string>(task.title);
@@ -73,6 +75,8 @@ export const TaskEditScreen: React.FC<Props> = ({ route, navigation }) => {
         />
       </View>
 
+      { error && <ErrorCard text={error} /> }
+      { deleteError && <ErrorCard text={deleteError} /> }
 
       <View style={styles.warningContainer}>
         <Text style={styles.warningTitle}> DANGER ZONE</Text>

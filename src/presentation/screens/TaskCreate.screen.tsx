@@ -8,13 +8,13 @@ import { TaskStatus } from "../../domain/entities/Task";
 import { TaskStatusSelector } from "../components/TaskStatusSelector/TaskStatusSelector";
 import { Button } from "../components/Button/Button";
 import { createTask, createTaskInit } from "../../infrastructure/redux/actions/createTask.actions";
+import { ErrorCard } from "../../presentation/components/ErrorCard/ErrorCard";
 
 interface Props extends NativeStackScreenProps<StackParams, "TaskCreate"> {}
 
 export const TaskCreateScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useAppDispatch();
-  const loading = useAppSelector(state => state.createTask.loading);
-  const createTaskValue = useAppSelector(state => state.createTask.value);
+  const { loading, error, value : createTaskValue } = useAppSelector(state => state.createTask);
 
   const [title, setTitle] = useState<string>("");
   const [status, setStatus] = useState<TaskStatus>(TaskStatus.PENDING);
@@ -36,7 +36,7 @@ export const TaskCreateScreen: React.FC<Props> = ({ navigation }) => {
   return (  
     <SafeAreaView style={styles.container}>
       
-      <Text style={styles.title}>Edit Task</Text>
+      <Text style={styles.title}>Create Task</Text>
       <View style={styles.editForm}>
         <View style={styles.formRow}>
           <Text style={styles.label}>Title:</Text>
@@ -66,6 +66,8 @@ export const TaskCreateScreen: React.FC<Props> = ({ navigation }) => {
           type='secondary'
         />
       </View>
+
+      { error && <ErrorCard text={error}/>}
       
     </SafeAreaView>
   );

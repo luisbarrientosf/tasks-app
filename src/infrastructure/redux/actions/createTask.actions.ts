@@ -24,7 +24,7 @@ export const createTask = (title: string, status: TaskStatus) => {
 
       dispatch({
         type: ActionType.CREATE_TASK_FAIL,
-        payload: "Error creating task"
+        payload: err?.toString() || "Error creating task"
       });
     }
   };

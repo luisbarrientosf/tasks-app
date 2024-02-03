@@ -24,7 +24,7 @@ export const updateTask = (taskId: string, title: string, status: TaskStatus) =>
 
       dispatch({
         type: ActionType.UPDATE_TASK_FAIL,
-        payload: "Error getting tasks"
+        payload: err?.toString() || "Error updating task"
       });
     }
   };

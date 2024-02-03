@@ -7,12 +7,13 @@ import { useAppDispatch, useAppSelector } from "../../infrastructure/redux/hooks
 import { getTasks, getTasksInit } from "../../infrastructure/redux/actions/getTasks.actions";
 import { TaskList } from "../components/TaskList/TaskList";
 import { Button } from "../../presentation/components/Button/Button";
+import { ErrorCard } from "../../presentation/components/ErrorCard/ErrorCard";
 
 interface Props extends NativeStackScreenProps<StackParams, "TaskList"> {}
 
 export const TaskListScreen: React.FC<Props> = ({ navigation }) => {
-  const loading = useAppSelector(state => state.getTasks.loading);
-  const tasks = useAppSelector(state => state.getTasks.value);
+  const { loading, error, value: tasks } = useAppSelector(state => state.getTasks);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -42,6 +43,8 @@ export const TaskListScreen: React.FC<Props> = ({ navigation }) => {
       { tasks && (
         <TaskList data={tasks} navigate={navigation.navigate}/>
       )}
+      { error && <ErrorCard text={error} />}
+
     </SafeAreaView>
   );
 };
